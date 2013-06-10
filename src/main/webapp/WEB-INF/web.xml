@@ -14,9 +14,17 @@
         <servlet-name>simple</servlet-name>
         <servlet-class>org.dhara.portal.web.SimpleServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>XMLRequest</servlet-name>
+        <servlet-class>org.dhara.portal.web.external.XMLRequestHandler</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>simple</servlet-name>
         <url-pattern>/simple</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>XMLRequest</servlet-name>
+        <url-pattern>/xmlRequest</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AxisServlet</servlet-name>
