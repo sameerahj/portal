@@ -231,6 +231,11 @@
             <artifactId>axis2-java2wsdl</artifactId>
             <version>1.6.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.airavata</groupId>
+            <artifactId>airavata-client-api</artifactId>
+            <version>0.7</version>
+        </dependency>
     </dependencies>
 
     <!-- Shared version number properties -->
