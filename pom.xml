@@ -236,6 +236,17 @@
             <artifactId>airavata-client-api</artifactId>
             <version>0.7</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.ws.commons.axiom</groupId>
+            <artifactId>axiom-api</artifactId>
+            <version>1.2.14</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ws.commons.axiom</groupId>
+            <artifactId>axiom-impl</artifactId>
+            <version>1.2.14</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <!-- Shared version number properties -->
