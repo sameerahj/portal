@@ -18,6 +18,15 @@
         <servlet-name>XMLRequest</servlet-name>
         <servlet-class>org.dhara.portal.web.external.XMLRequestHandler</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Jersey REST Service</servlet-name>
+        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>org.dhara.portal.web.airavataClientAPI</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
     <servlet-mapping>
         <servlet-name>simple</servlet-name>
         <url-pattern>/simple</url-pattern>
@@ -29,5 +38,10 @@
     <servlet-mapping>
         <servlet-name>AxisServlet</servlet-name>
         <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Jersey REST Service</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
 </web-app>
