@@ -179,24 +179,6 @@
             <version>4.2.1.Final</version>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4jVersion}</version>
-        </dependency>
-        <!--Binding for log4j version 1.2.x You also need to
-        place log4j.jar on your class path. -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4jVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.16</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
@@ -232,11 +214,6 @@
             <version>1.6.2</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.airavata</groupId>
-            <artifactId>airavata-client-api</artifactId>
-            <version>0.7</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.ws.commons.axiom</groupId>
             <artifactId>axiom-api</artifactId>
             <version>1.2.14</version>
@@ -248,41 +225,52 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-server</artifactId>
-            <version>1.8</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.airavata</groupId>
-            <artifactId>airavata-rest-client</artifactId>
-            <version>0.7</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-json</artifactId>
-            <version>1.13</version>
-        </dependency>
-        <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.2.2</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.sun.jersey</groupId>-->
-            <!--<artifactId>jersey-server</artifactId>-->
-            <!--<version>1.8</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.sun.jersey</groupId>-->
-            <!--<artifactId>jersey-servlet</artifactId>-->
-            <!--<version>1.13</version>-->
-        <!--</dependency>-->
+        <!-- Workflow Invoker-->
+        <dependency>
+            <groupId>org.apache.airavata</groupId>
+            <artifactId>airavata-rest-client</artifactId>
+            <version>${airavataVersion}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.airavata</groupId>
+            <artifactId>airavata-client-api</artifactId>
+            <version>${airavataVersion}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.airavata</groupId>
+            <artifactId>airavata-registry-api</artifactId>
+            <version>${airavataVersion}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
+
 
     <!-- Shared version number properties -->
     <properties>
         <org.springframework.version>3.0.5.RELEASE</org.springframework.version>
         <slf4jVersion>1.6.1</slf4jVersion>
+        <airavataVersion>0.8-SNAPSHOT</airavataVersion>
     </properties>
 
     <build>
