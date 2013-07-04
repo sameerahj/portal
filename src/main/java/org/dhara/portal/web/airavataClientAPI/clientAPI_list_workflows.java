@@ -2,16 +2,16 @@ package org.dhara.portal.web.airavataClientAPI;
 
 import org.apache.airavata.client.AiravataAPIFactory;
 import org.apache.airavata.client.api.AiravataAPI;
-import org.apache.airavata.client.api.AiravataAPIInvocationException;
 import org.apache.airavata.client.api.WorkflowManager;
+import org.apache.airavata.client.api.exception.AiravataAPIInvocationException;
 import org.apache.airavata.registry.api.PasswordCallback;
 import org.apache.airavata.rest.client.PasswordCallbackImpl;
 import org.apache.airavata.workflow.model.wf.WorkflowData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 
@@ -37,9 +37,10 @@ public class clientAPI_list_workflows {
     private static String password = "admin";
 
     private static AiravataAPI airavataAPI;
+
     private static List<WorkflowData> workflowDataList;
 
-    public static void main(String[] args) throws URISyntaxException, AiravataAPIInvocationException {
+    /*public static void main(String[] args) throws URISyntaxException, AiravataAPIInvocationException {
 
         clientAPI_list_workflows client= new clientAPI_list_workflows();
         workflowDataList = client.displayWorkflows();
@@ -49,13 +50,14 @@ public class clientAPI_list_workflows {
 
 
 
-    }
+    }*/
 
     public static List<WorkflowData> displayWorkflows() {
+        // creating airavata client object //
         port = Integer.parseInt("8080");
         serverUrl = "localhost";
         serverContextName = "airavata-registry";
-
+        System.out.println((new File(".")).getAbsolutePath());
         log.info("Configurations - port : " + port);
         log.info("Configurations - serverUrl : " + serverUrl);
         log.info("Configurations - serverContext : " + serverContextName);
@@ -63,18 +65,11 @@ public class clientAPI_list_workflows {
         registryURL = "http://" + serverUrl + ":" + port + "/" + serverContextName + "/api";
 
         log.info("Configurations - Registry URL : " + registryURL);
-
-        PasswordCallback passwordCallback = new PasswordCallbackImpl(getUserName(), getPassword());
-
-        String templateId = "http://extreme.indiana.edu/lead/workflow/Workflow1";
-
-        try {
-            airavataAPI = AiravataAPIFactory.getAPI(new URI(getRegistryURL()), getUserName(),
-                    getPassword());
-
-            WorkflowManager workflowManager = airavataAPI.getWorkflowManager();
-            workflowDataList = workflowManager.getAllWorkflows();
-
+        try{
+            PasswordCallback passwordCallback = new PasswordCallbackImpl(getUserName(), getPassword());
+            airavataAPI = AiravataAPIFactory.getAPI(new URI(getRegistryURL()), getGatewayName(), getUserName(),passwordCallback);
+            WorkflowManager workflowManager=airavataAPI.getWorkflowManager();
+            workflowDataList=workflowManager.getAllWorkflows();
 
         } catch (Exception e) {
             e.printStackTrace();
