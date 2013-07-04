@@ -1,7 +1,5 @@
 package org.dhara.portal.web.airavataClient;
 
-import java.util.Map;
-
 /**
  * Created with IntelliJ IDEA.
  * User: harsha
@@ -10,8 +8,5 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class AiravataConfig {
-    public static Map<String,String> getConfig()
-    {
 
-    }
 }
