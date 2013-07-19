@@ -8,11 +8,13 @@ package org.dhara.portal.web.springHibernateSample.dao;
  * To change this template use File | Settings | File Templates.
  */
 
-import org.dhara.portal.web.springHibernateSample.entity.User;
+import org.dhara.portal.web.springHibernateSample.entity.Customer;
+
+import java.util.List;
 
 public interface UserDao {
 
-    public User findById(Long id);
-    public User persistOrMerge(User user);
+    public void saveOrUpdateCustomer(Customer customer);
+    public List<Customer> fetchALLCustomers();
 
 }

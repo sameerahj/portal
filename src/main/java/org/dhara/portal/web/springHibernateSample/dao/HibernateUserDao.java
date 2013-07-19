@@ -1,8 +1,11 @@
 package org.dhara.portal.web.springHibernateSample.dao;
 
-import org.dhara.portal.web.springHibernateSample.entity.User;
+import org.dhara.portal.web.springHibernateSample.entity.Customer;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,17 +14,27 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Time: 1:04 PM
  * To change this template use File | Settings | File Templates.
  */
+@Transactional
 public class HibernateUserDao implements UserDao {
-    @Autowired(required=true)
+
     private SessionFactory sessionFactory;
 
-    public User findById(Long id) {
-        return (User) this.sessionFactory.getCurrentSession().createQuery(
-                "from User user where user.id=?").setParameter(0, id)
-                .uniqueResult();
+    public void saveOrUpdateCustomer(Customer customer) {
+        getSessionFactory().getCurrentSession().save(customer);
     }
 
-    public User persistOrMerge(User user) {
-        return (User) this.sessionFactory.getCurrentSession().merge(user);
+    public List<Customer> fetchALLCustomers() {
+        Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(Customer.class);
+        return (List<Customer>) criteria.list();
+    }
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 }
+
+

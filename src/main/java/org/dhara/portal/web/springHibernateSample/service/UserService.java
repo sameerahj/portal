@@ -1,6 +1,8 @@
 package org.dhara.portal.web.springHibernateSample.service;
 
-import org.dhara.portal.web.springHibernateSample.entity.User;
+import org.dhara.portal.web.springHibernateSample.entity.Customer;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,6 +12,6 @@ import org.dhara.portal.web.springHibernateSample.entity.User;
  * To change this template use File | Settings | File Templates.
  */
 public interface UserService {
-    public User retrieveUser(Long id);
-    public User createUser(User user);
+    public void saveOrUpdateCustomer(Customer customer);
+    public List<Customer> fetchALLCustomers();
 }

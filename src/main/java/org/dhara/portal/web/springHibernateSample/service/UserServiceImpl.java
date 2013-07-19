@@ -1,9 +1,13 @@
 package org.dhara.portal.web.springHibernateSample.service;
 
 import org.dhara.portal.web.springHibernateSample.dao.UserDao;
-import org.dhara.portal.web.springHibernateSample.entity.User;
+import org.dhara.portal.web.springHibernateSample.entity.Customer;
+import org.hibernate.Criteria;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,19 +16,23 @@ import org.springframework.transaction.annotation.Transactional;
  * Time: 1:06 PM
  * To change this template use File | Settings | File Templates.
  */
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService {
 
-    @Autowired(required=true)
     private UserDao userDao;
 
-    @Transactional
-    public User createUser(User user) {
-        return this.userDao.persistOrMerge(user);
+    public void saveOrUpdateCustomer(Customer customer) {
+        userDao.saveOrUpdateCustomer(customer);
     }
 
-    @Transactional(readOnly=true)
-    public User retrieveUser(Long id) {
-        return this.userDao.findById(id);
+    public List<Customer> fetchALLCustomers() {
+        return userDao.fetchALLCustomers();
     }
 
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
 }
