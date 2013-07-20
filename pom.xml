@@ -10,6 +10,7 @@
     <packaging>war</packaging>
     <name>Dhara Portal</name>
     <dependencies>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -23,6 +24,7 @@
             <version>3.0.1</version>
             <scope>provided</scope>
         </dependency>
+
         <!--
             Core utilities used by other modules.
             Define this if you use Spring Utility APIs (org.springframework.core.*/org.springframework.util.*)
@@ -179,6 +181,7 @@
             <artifactId>hibernate-core</artifactId>
             <version>4.2.1.Final</version>
         </dependency>
+
         <!-- JSTL -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -289,6 +292,7 @@
             <artifactId>h2</artifactId>
             <version>1.3.172</version>
         </dependency>
+
     </dependencies>
 
     <!-- Shared version number properties -->
