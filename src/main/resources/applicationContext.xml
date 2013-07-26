@@ -49,4 +49,13 @@
         </property>
     </bean>
 
+    <bean id="airavataConfig" class="org.dhara.portal.web.airavataClient.AiravataConfig" >
+    </bean>
+
+    <bean id="airavataAPIService" class="org.dhara.portal.web.airavataClient.AiravataClientAPIServiceImpl">
+        <property name="airavataConfig">
+            <ref bean="airavataConfig"/>
+        </property>
+    </bean>
+
 </beans>

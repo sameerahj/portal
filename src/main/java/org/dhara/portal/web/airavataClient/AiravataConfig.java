@@ -31,20 +31,11 @@ public class AiravataConfig {
     private  String messageBox;
     private  String broker;
     private  String gfac;
-    private static AiravataConfig airavataConfig;
-    private AiravataConfig() throws PortalException {
+    public AiravataConfig() throws PortalException {
         if(isAiravataConfigurationExists()) {
-            airavataConfig=getAiravataConfiguration();
+            setAiravataConfiguration();
         } else {
-            airavataConfig=getDefaultConfig();
-        }
-    }
-
-    private static  AiravataConfig getAiravataConfig() throws PortalException {
-        if(airavataConfig!=null) {
-            return airavataConfig;
-        } else {
-            return new AiravataConfig();
+            setDefaultConfig();
         }
     }
 
@@ -53,18 +44,16 @@ public class AiravataConfig {
         return file.exists();
     }
 
-    private AiravataConfig getDefaultConfig() throws PortalException {
-        AiravataConfig defaultConfig=new AiravataConfig();
-        defaultConfig.setPassword("admin");
-        defaultConfig.setUserName("admin");
-        defaultConfig.setGatewayName("default");
-        defaultConfig.setPort(8080);
-        defaultConfig.setServerContextName("airavata-registry");
-        defaultConfig.setServerUrl("localhost");
-        return defaultConfig;
+    private void setDefaultConfig() throws PortalException {
+        this.setPassword("admin");
+        this.setUserName("admin");
+        this.setGatewayName("default");
+        this.setPort(8080);
+        this.setServerContextName("airavata-registry");
+        this.setServerUrl("localhost");
     }
 
-    private AiravataConfig getAiravataConfiguration() throws PortalException {
+    private void setAiravataConfiguration() throws PortalException {
         File file= new File("airavata_config.xml");
         FileInputStream fis;
         XMLInputFactory xif;
@@ -83,18 +72,16 @@ public class AiravataConfig {
         OMElement documentElement= builder.getDocumentElement();
         OMElement airavataConfiguration=documentElement.getFirstElement();
         OMElement server=airavataConfiguration.getFirstElement();
-        AiravataConfig defaultConfig=new AiravataConfig();
-        defaultConfig.setPassword(server.getFirstChildWithName(new QName("username")).toString());
-        defaultConfig.setUserName(server.getFirstChildWithName(new QName("password")).toString());
-        defaultConfig.setGatewayName(server.getFirstChildWithName(new QName("gateway-name")).toString());
-        defaultConfig.setPort(Integer.parseInt(server.getFirstChildWithName(new QName("port")).toString()));
-        defaultConfig.setServerContextName(server.getFirstChildWithName(new QName("server-context")).toString());
-        defaultConfig.setServerUrl(server.getFirstChildWithName(new QName("server-url")).toString());
-        defaultConfig.setBroker(server.getFirstChildWithName(new QName("broker")).toString());
-        defaultConfig.setGfac(server.getFirstChildWithName(new QName("gfac")).toString());
-        defaultConfig.setMessageBox(server.getFirstChildWithName(new QName("message-box")).toString());
-        defaultConfig.setJcr(server.getFirstChildWithName(new QName("jcr")).toString());
-        return defaultConfig;
+        this.setPassword(server.getFirstChildWithName(new QName("username")).toString());
+        this.setUserName(server.getFirstChildWithName(new QName("password")).toString());
+        this.setGatewayName(server.getFirstChildWithName(new QName("gateway-name")).toString());
+        this.setPort(Integer.parseInt(server.getFirstChildWithName(new QName("port")).toString()));
+        this.setServerContextName(server.getFirstChildWithName(new QName("server-context")).toString());
+        this.setServerUrl(server.getFirstChildWithName(new QName("server-url")).toString());
+        this.setBroker(server.getFirstChildWithName(new QName("broker")).toString());
+        this.setGfac(server.getFirstChildWithName(new QName("gfac")).toString());
+        this.setMessageBox(server.getFirstChildWithName(new QName("message-box")).toString());
+        this.setJcr(server.getFirstChildWithName(new QName("jcr")).toString());
     }
     public int getPort() {
         return port;

@@ -8,6 +8,15 @@ package org.dhara.portal.web.airavataClient;
  * To change this template use File | Settings | File Templates.
  */
 public class AiravataClientAPIServiceImpl {
+   private AiravataConfig airavataConfig;
 
+    public AiravataConfig getAiravataConfig() {
+        return airavataConfig;
+    }
 
+    public void setAiravataConfig(AiravataConfig airavataConfig) {
+        this.airavataConfig = airavataConfig;
+    }
+
+    p
 }

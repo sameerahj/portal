@@ -1,5 +1,9 @@
 package org.dhara.portal.web.airavataClient;
 
+import org.apache.airavata.workflow.model.wf.Workflow;
+
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: harsha
@@ -8,4 +12,7 @@ package org.dhara.portal.web.airavataClient;
  * To change this template use File | Settings | File Templates.
  */
 public interface AiravataClientAPIService {
+    public List<Workflow> getAllWorkflows();
+    public Workflow getWorkflow(String identifier);
+
 }
