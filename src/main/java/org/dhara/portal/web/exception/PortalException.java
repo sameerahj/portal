@@ -11,4 +11,8 @@ public class PortalException extends Exception {
     public PortalException (String ex, Exception e) {
         super(ex,e);
     }
+
+    public PortalException (String ex) {
+        super(ex);
+    }
 }
