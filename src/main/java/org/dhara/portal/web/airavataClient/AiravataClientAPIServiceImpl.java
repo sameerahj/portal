@@ -56,6 +56,7 @@ public class AiravataClientAPIServiceImpl implements AiravataClientAPIService{
         return airavataAPI;
     }
 
+<<<<<<< HEAD
     public void setAiravataConfig(AiravataConfig airavataConfairavataAPIig) {
         this.airavataConfig = airavataConfairavataAPIig;
     }
@@ -84,5 +85,12 @@ public class AiravataClientAPIServiceImpl implements AiravataClientAPIService{
 
     public AiravataConfig getAiravataConfig() {
         return airavataConfig;
+=======
+    public void setAiravataConfig(AiravataConfig airavataConfig) {
+        this.airavataConfig = airavataConfig;
+
+>>>>>>> 98c7579bd2638cf437a49ebf1a4db0e425803879
     }
+
+
 }

@@ -38,7 +38,8 @@ public List<String> getOutputIdentifiers() {
 public Class<?> getInputDataType(String identifier) {
     <#list inputIdentifiers as inputIdentifier>
         if (identifier.equalsIgnoreCase(inputIdentifier${inputIdentifier})) {
-        return ${inputIdentifierTypeClass}.class;
+        <#assign bindClass="${inputIdentifier}"+"TypeClass">
+        return ${bindClass}.class;
     }
     </#list>
     return null;
@@ -48,7 +49,8 @@ public Class<?> getInputDataType(String identifier) {
 public Class<?> getOutputDataType(String id) {
      <#list outputIdentifiers as outputIdentifier>
          if (identifier.equalsIgnoreCase(outputIdentifier${outputIdentifier})) {
-         return ${outputIdentifierTypeClass}.class;
+         <#assign bindClass="${outputIdentifier}"+"TypeClass">
+         return ${bindClass}.class;
      }
      </#list>
      return null;
