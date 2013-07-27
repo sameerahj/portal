@@ -49,7 +49,7 @@
         </property>
     </bean>
 
-    <bean id="airavataConfig" class="org.dhara.portal.web.airavataClient.AiravataConfig" >
+    <bean id="airavataConfig" class="org.dhara.portal.web.airavataClient.AiravataConfig" scope="singleton">
     </bean>
 
     <bean id="airavataAPIService" class="org.dhara.portal.web.airavataClient.AiravataClientAPIServiceImpl">

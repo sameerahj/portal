@@ -31,6 +31,7 @@ public class AiravataConfig {
     private  String messageBox;
     private  String broker;
     private  String gfac;
+
     public AiravataConfig() throws PortalException {
         if(isAiravataConfigurationExists()) {
             setAiravataConfiguration();
