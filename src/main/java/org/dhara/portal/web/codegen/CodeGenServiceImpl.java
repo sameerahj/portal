@@ -1,6 +1,9 @@
 package org.dhara.portal.web.codegen;
 
+import org.apache.airavata.workflow.model.wf.Workflow;
 import org.dhara.portal.web.airavataClient.AiravataClientAPIService;
+
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,12 +16,17 @@ public class CodeGenServiceImpl implements CodeGenService{
     private AiravataClientAPIService airavataClientAPIService;
 
     public String getGeneratedClass(String workflowId)  {
+        Workflow workflow=airavataClientAPIService.getWorkflow(workflowId);
+
         return null;
     }
 
-    private String generateClass() {
-        String builder= new String();
+    public String getGeneratedClassForCustomDeployment(String worklfowId, Map<String, String> inputsMapping, Map<String, String> outputsMapping, String extendingAlgorithm) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 
+    private String generateClassFromTemplate() {
+        return null;
     }
     public AiravataClientAPIService getAiravataClientAPIService() {
         return airavataClientAPIService;

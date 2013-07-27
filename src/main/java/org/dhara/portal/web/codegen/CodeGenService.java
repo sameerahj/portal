@@ -1,5 +1,7 @@
 package org.dhara.portal.web.codegen;
 
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * User: harsha
@@ -9,4 +11,6 @@ package org.dhara.portal.web.codegen;
  */
 public interface CodeGenService {
     public String getGeneratedClass(String workflowId);
+
+    public String getGeneratedClassForCustomDeployment(String worklfowId,Map<String,String> inputsMapping, Map<String,String> outputsMapping,String extendingAlgorithm);
 }

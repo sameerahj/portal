@@ -17,6 +17,4 @@ public class AiravataClientAPIServiceImpl {
     public void setAiravataConfig(AiravataConfig airavataConfig) {
         this.airavataConfig = airavataConfig;
     }
-
-    p
 }
