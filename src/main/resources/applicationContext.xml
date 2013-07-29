@@ -58,4 +58,9 @@
         </property>
     </bean>
 
+    <bean id="codeGenService" class="org.dhara.portal.web.codegen.CodeGenServiceImpl" scope="prototype">
+        <property name="airavataClientAPIService">
+            <ref bean="airavataAPIService"/>
+        </property>
+    </bean>
 </beans>

@@ -26,12 +26,14 @@ public class CodeGenServiceImpl implements CodeGenService{
         Workflow workflow=airavataClientAPIService.getWorkflow(workflowId);
         List<WorkflowInput> workflowInputs = null;
         List<WSComponentPort> workflowOutputs = null;
+
         try {
             workflowInputs = workflow.getWorkflowInputs();
             workflowOutputs = workflow.getOutputs();
         } catch (Exception e) {
             throw new PortalException("Error getting workflow with id="+workflowId,e);
         }
+
         List<String> inputIds=new ArrayList<String>();
         List<String> outputIds=new ArrayList<String>();
         Map<String,String> inputBindings=new HashMap<String, String>();

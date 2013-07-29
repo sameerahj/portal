@@ -293,31 +293,6 @@
             <version>2.3.20</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.airavata</groupId>
-            <artifactId>airavata-client-api</artifactId>
-            <version>0.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.airavata</groupId>
-            <artifactId>airavata-workflow-model-core</artifactId>
-            <version>0.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.airavata</groupId>
-            <artifactId>airavata-workflow-model-core</artifactId>
-            <version>0.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.airavata</groupId>
-            <artifactId>airavata-workflow-model-core</artifactId>
-            <version>0.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.airavata</groupId>
-            <artifactId>airavata-workflow-model-core</artifactId>
-            <version>0.7</version>
-        </dependency>
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.2</version>

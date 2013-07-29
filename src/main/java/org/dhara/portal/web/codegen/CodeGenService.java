@@ -12,6 +12,7 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public interface CodeGenService {
+
     public String getGeneratedClass(String workflowId) throws PortalException;
 
     public String getGeneratedClassForCustomDeployment(String worklfowId,Map<String,String> inputsMapping, Map<String,String> outputsMapping,String extendingAlgorithm);

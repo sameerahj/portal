@@ -5,12 +5,21 @@ import org.apache.airavata.client.api.AiravataAPI;
 import org.apache.airavata.client.api.AiravataAPIInvocationException;
 import org.apache.airavata.client.api.WorkflowManager;
 import org.apache.airavata.registry.api.PasswordCallback;
+import org.apache.airavata.registry.api.exception.worker.ExperimentLazyLoadedException;
+import org.apache.airavata.registry.api.impl.WorkflowExecutionDataImpl;
+import org.apache.airavata.registry.api.workflow.ExperimentData;
+import org.apache.airavata.registry.api.workflow.NodeExecutionData;
+import org.apache.airavata.registry.api.workflow.OutputData;
 import org.apache.airavata.rest.client.PasswordCallbackImpl;
 import org.apache.airavata.workflow.model.wf.Workflow;
+import org.apache.airavata.workflow.model.wf.WorkflowInput;
 import org.dhara.portal.web.exception.PortalException;
 
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,48 +31,11 @@ import java.util.List;
 public class AiravataClientAPIServiceImpl implements AiravataClientAPIService{
 
     private AiravataConfig airavataConfig;
-    private static AiravataAPI airavataClientAPI;
 
-
-
-    public AiravataClientAPIServiceImpl() throws PortalException {
-        airavataConfig = new AiravataConfig();
-        airavataClientAPI = this.setAiravataApi();
-    }
-
-    public static AiravataAPI getAiravataClientAPI() {
-        return airavataClientAPI;
-    }
-
-    private AiravataAPI setAiravataApi() {
-        int port = airavataConfig.getPort();
-        String serverUrl = airavataConfig.getServerUrl();
-        String serverContextName = airavataConfig.getServerContextName();
-        String username = airavataConfig.getUserName();
-        String password = airavataConfig.getPassword();
-        String gatewayName = airavataConfig.getGatewayName();
-
-        String registryURL = "http://" + serverUrl + ":" + port + "/" + serverContextName + "/api";
-        AiravataAPI airavataAPI = null;
-
-        try{
-            PasswordCallback passwordCallback = new PasswordCallbackImpl(username, password);
-            airavataAPI = AiravataAPIFactory.getAPI(new URI(registryURL), gatewayName, username, passwordCallback);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return airavataAPI;
-    }
-
-<<<<<<< HEAD
-    public void setAiravataConfig(AiravataConfig airavataConfairavataAPIig) {
-        this.airavataConfig = airavataConfairavataAPIig;
-    }
-
-    public List<Workflow> getAllWorkflows() {
+    public List<Workflow> getAllWorkflows() throws PortalException {
         List<Workflow> workflows = null;
-        WorkflowManager workflowManager=getAiravataClientAPI().getWorkflowManager();
+        AiravataAPI airavataAPI=getAiravataAPI();
+        WorkflowManager workflowManager=airavataAPI.getWorkflowManager();
         try {
             workflows=workflowManager.getWorkflows();
         } catch (AiravataAPIInvocationException e) {
@@ -72,9 +44,11 @@ public class AiravataClientAPIServiceImpl implements AiravataClientAPIService{
         return workflows;
     }
 
-    public Workflow getWorkflow(String identifier) {
+
+    public Workflow getWorkflow(String identifier) throws PortalException {
+        AiravataAPI airavataAPI=getAiravataAPI();
         Workflow workflow = null;
-        WorkflowManager workflowManager=getAiravataClientAPI().getWorkflowManager();
+        WorkflowManager workflowManager=airavataAPI.getWorkflowManager();
         try {
             workflow=workflowManager.getWorkflow(identifier);
         } catch (AiravataAPIInvocationException e) {
@@ -83,14 +57,64 @@ public class AiravataClientAPIServiceImpl implements AiravataClientAPIService{
         return workflow;
     }
 
-    public AiravataConfig getAiravataConfig() {
-        return airavataConfig;
-=======
-    public void setAiravataConfig(AiravataConfig airavataConfig) {
-        this.airavataConfig = airavataConfig;
-
->>>>>>> 98c7579bd2638cf437a49ebf1a4db0e425803879
+    public String executeWorkflow(Map<String, Object> inputs, String workflowId) throws Exception {
+        AiravataAPI airavataAPI=getAiravataAPI();
+        Workflow workflow = airavataAPI.getWorkflowManager().getWorkflow(workflowId);
+        List<WorkflowInput> workflowInputs = workflow.getWorkflowInputs();
+        for (WorkflowInput workflowInput : workflowInputs) {
+            Object value=inputs.get(workflowInput.getName());
+            if ("int".equals(workflowInput.getType())||"integer".equals(workflowInput.getType())) {
+                workflowInput.setValue((Integer)value);
+            } else if("String".equals(workflowInput.getType())){
+                workflowInput.setValue((String)value);
+            } else {
+                workflowInput.setValue((Object)value);
+            }
+        }
+        return airavataAPI.getExecutionManager().runExperiment(workflowId, workflowInputs);
     }
 
+    public Map<String, Object> getWorkflowOutputs(String experimentId) throws AiravataAPIInvocationException, URISyntaxException, ExperimentLazyLoadedException, PortalException {
+        AiravataAPI airavataAPI=getAiravataAPI();
+        Map<String,Object> outputs=new HashMap<String, Object>();
+        MonitorWorkflow monitorWorkflow=new MonitorWorkflow();
+        monitorWorkflow.monitor(experimentId,airavataAPI);
+        airavataAPI.getExecutionManager().waitForExperimentTermination(experimentId);
+        ExperimentData experimentData =airavataAPI.getProvenanceManager().getExperimentData(experimentId);
+        List<WorkflowExecutionDataImpl> workflowInstanceData = experimentData.getWorkflowExecutionDataList();
+        for (WorkflowExecutionDataImpl executionDataImpl : workflowInstanceData) {
+            List<NodeExecutionData> nodeDataList = executionDataImpl.getNodeDataList();
+            for (NodeExecutionData nodeExecutionData : nodeDataList) {
+                List<OutputData> outputData = nodeExecutionData.getOutputData();
+                for (OutputData data : outputData) {
+                    outputs.put(data.getName(),data.getValue());
+                }
+            }
+        }
+        return outputs;
+    }
 
+    private AiravataAPI getAiravataAPI() throws PortalException {
+        int port = airavataConfig.getPort();
+        String serverUrl = airavataConfig.getServerUrl();
+        String serverContextName = airavataConfig.getServerContextName();
+        String username = airavataConfig.getUserName();
+        String password = airavataConfig.getPassword();
+        String gatewayName = airavataConfig.getGatewayName();
+        String registryURL = "http://" + serverUrl + ":" + port + "/" + serverContextName + "/api";
+        AiravataAPI airavataAPI = null;
+
+        try{
+            PasswordCallback passwordCallback = new PasswordCallbackImpl(username, password);
+            airavataAPI = AiravataAPIFactory.getAPI(new URI(registryURL), gatewayName, username, passwordCallback);
+        } catch (Exception e) {
+            throw new PortalException("Error creating airavata api instance",e);
+        }
+
+        return airavataAPI;
+    }
+
+    public void setAiravataConfig(AiravataConfig airavataConfig) {
+        this.airavataConfig = airavataConfig;
+    }
 }
