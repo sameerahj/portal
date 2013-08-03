@@ -26,7 +26,9 @@ public class CodegenUtils {
     public static final String literalImports="import org.n52.wps.io.data.binding.literal.*;";
     public static final String complexImports="import org.n52.wps.io.data.binding.complex.*;";
     public static final String algorithmImports="import org.n52.wps.server.*;";
-    public static final String dataImports="import org.n52.wps.io.data*;";
+    public static final String dataImports="import org.n52.wps.io.data.*;";
+    public static final String utilImports="import java.util.*;";
+    public static final String loggerImports="import org.apache.log4j.Logger;";
     public static final String defaultPackage ="package org.dhara.wps;";
     public static final String defaultExtendingClass="AbstractSelfDescribingAlgorithm";
     public static final String COMPLEX_ASCII_GRASS_DATA_BINDING="AsciiGrassDataBinding";
@@ -72,6 +74,8 @@ public class CodegenUtils {
         getImports().add(complexImports);
         getImports().add(algorithmImports);
         getImports().add(dataImports);
+        getImports().add(utilImports);
+        getImports().add(loggerImports);
 
         getLiterals().put("integer", "LiteralIntBinding");
         getLiterals().put("String", "LiteralStringBinding");
