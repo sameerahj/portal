@@ -4,6 +4,10 @@
         <username></username>
         <password></password>
         <message-box></message-box>
+        <gateway-name></gateway-name>
+        <port></port>
+        <server-context></server-context>
+        <server-url></server-url>
         <broker></broker>
         <jcr></jcr>
         <gfac></gfac>
